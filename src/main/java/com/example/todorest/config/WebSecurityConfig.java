@@ -33,9 +33,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST,"/user/auth").permitAll()
                 .requestMatchers(HttpMethod.POST,"/user/register").permitAll()
+                .anyRequest().authenticated()
                 .requestMatchers("/user/{id}").hasAuthority("ADMIN")
                 .requestMatchers("/todo/**").hasAnyAuthority("ADMIN", "USER")
-                .requestMatchers("/category/**").hasAuthority("ADMIN")
+                .requestMatchers("/categories/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
